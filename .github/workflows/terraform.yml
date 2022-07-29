@@ -1,0 +1,57 @@
+name: 'Terraform'
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+
+env:
+  CONTEXT: dev
+  AWS_REGION: ap-southeast-2
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    environment: development
+
+    # Use the Bash shell
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the specific version of Terraform CLI
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.1.7
+
+    # Install the specific version of Terragrunt CLI
+    - name: Setup Terragrunt
+      uses: autero1/action-terragrunt@v1.1.0
+      with:
+        terragrunt_version: 0.38.6
+
+    # Initialize a new or existing Terraform working directory
+    - name: Terragrunt Init
+      working-directory: './$CONTEXT/$AWS_REGION'
+      run: terragrunt init
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terragrunt Format
+      working-directory: './$CONTEXT/$AWS_REGION'
+      run: terragrunt fmt -check
+
+    # Generates an execution plan for Terraform
+    - name: Terragrunt Plan
+      working-directory: './$CONTEXT/$AWS_REGION'
+      run: terragrunt plan -input=false
