@@ -15,7 +15,7 @@ env:
   AWS_REGION: ap-southeast-2
 
 jobs:
-  setup-terraform:
+  validate-terraform:
     runs-on: ubuntu-latest
     environment: development
 
@@ -25,10 +25,6 @@ jobs:
         shell: bash
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
-
     # Install the specific version of Terraform CLI
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
@@ -41,21 +37,19 @@ jobs:
       with:
         terragrunt_version: 0.38.6
 
-  validate-state-backend-module:
-    runs-on: ubuntu-latest
-    environment: development
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
 
-    # Initialize a new or existing Terraform working directory
-    - name: Terragrunt Init
-      working-directory: './${{CONTEXT}}/${{AWS_REGION}}/state-backend'
+    # Initialize a new or existing Terraform working directory - state-backend
+    - name: State-backend Terragrunt Init 
+      working-directory: '${{env.CONTEXT}}/${{env.AWS_REGION}}/state-backend'
       run: terragrunt init
 
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terragrunt Format
-      working-directory: './${{CONTEXT}}/${{AWS_REGION}}/state-backend'
+    # Checks that all Terraform configuration files adhere to a canonical format - state-backend
+    - name: State-backend Terragrunt Format
       run: terragrunt fmt -check
 
-    # Generates an execution plan for Terraform
-    - name: Terragrunt Plan
-      working-directory: './${{CONTEXT}}/${{AWS_REGION}}/state-backend'
+    # Generates an execution plan for Terraform - state-backend
+    - name: State-backend Terragrunt Plan
       run: terragrunt plan -input=false
