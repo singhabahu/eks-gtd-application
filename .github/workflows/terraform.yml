@@ -77,3 +77,13 @@ jobs:
     - name: EKS Terraform Format
       working-directory: '${{env.MODULE_PATH}}/vpc'
       run: terraform fmt -check
+
+    # Initialize a new or existing Terraform working directory - secretsmanager
+    - name: Secretsmanager Terraform Init 
+      working-directory: '${{env.MODULE_PATH}}/secretsmanager'
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format - secretsmanager
+    - name: Secretsmanager Terraform Format
+      working-directory: '${{env.MODULE_PATH}}/secretsmanager'
+      run: terraform fmt -check
