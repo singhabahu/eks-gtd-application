@@ -56,8 +56,10 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format - state-backend
     - name: State-backend Terragrunt Format
+      working-directory: '${{env.CONTEXT}}/${{env.AWS_REGION}}/state-backend'
       run: terragrunt fmt -check
 
     # Generates an execution plan for Terraform - state-backend
     - name: State-backend Terragrunt Plan
+      working-directory: '${{env.CONTEXT}}/${{env.AWS_REGION}}/state-backend'
       run: terragrunt plan -input=false
