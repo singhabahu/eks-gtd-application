@@ -67,3 +67,13 @@ jobs:
     - name: VPC Terraform Format
       working-directory: '${{env.MODULE_PATH}}/vpc'
       run: terraform fmt -check
+
+    # Initialize a new or existing Terraform working directory - eks
+    - name: EKS Terraform Init 
+      working-directory: '${{env.MODULE_PATH}}/vpc'
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format - eks
+    - name: EKS Terraform Format
+      working-directory: '${{env.MODULE_PATH}}/vpc'
+      run: terraform fmt -check
