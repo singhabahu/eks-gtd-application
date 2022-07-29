@@ -87,3 +87,13 @@ jobs:
     - name: Secretsmanager Terraform Format
       working-directory: '${{env.MODULE_PATH}}/secretsmanager'
       run: terraform fmt -check
+      
+    # Initialize a new or existing Terraform working directory - bastion
+    - name: Bastion Terraform Init 
+      working-directory: '${{env.MODULE_PATH}}/bastion'
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format - bastion
+    - name: Bastion Terraform Format
+      working-directory: '${{env.MODULE_PATH}}/bastion'
+      run: terraform fmt -check
