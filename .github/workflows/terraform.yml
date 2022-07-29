@@ -15,7 +15,7 @@ env:
   AWS_REGION: ap-southeast-2
 
 jobs:
-  terraform:
+  setup-terraform:
     runs-on: ubuntu-latest
     environment: development
 
@@ -40,18 +40,3 @@ jobs:
       uses: autero1/action-terragrunt@v1.1.0
       with:
         terragrunt_version: 0.38.6
-
-    # Initialize a new or existing Terraform working directory
-    - name: Terragrunt Init
-      working-directory: './$CONTEXT/$AWS_REGION'
-      run: terragrunt init
-
-    # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terragrunt Format
-      working-directory: './$CONTEXT/$AWS_REGION'
-      run: terragrunt fmt -check
-
-    # Generates an execution plan for Terraform
-    - name: Terragrunt Plan
-      working-directory: './$CONTEXT/$AWS_REGION'
-      run: terragrunt plan -input=false
