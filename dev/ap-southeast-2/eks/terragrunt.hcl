@@ -13,5 +13,6 @@ include "root" {
 
 inputs = {
   vpc_key          = "${local.region}/vpc/terraform.tfstate"
+  bastion_key      = "${local.region}/bastion/terraform.tfstate"
   eks_cluster_name = local.eks_cluster_name
 }
