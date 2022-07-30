@@ -97,3 +97,14 @@ jobs:
     - name: Bastion Terraform Format
       working-directory: '${{env.MODULE_PATH}}/bastion'
       run: terraform fmt -check
+
+    # Initialize a new or existing Terraform working directory - provisioner
+    - name: Provisioner Terraform Init 
+      working-directory: '${{env.MODULE_PATH}}/bastion'
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format - provisioner
+    - name: Provisioner Terraform Format
+      working-directory: '${{env.MODULE_PATH}}/bastion'
+      run: terraform fmt -check
+    
