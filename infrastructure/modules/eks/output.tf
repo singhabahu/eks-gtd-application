@@ -22,3 +22,8 @@ output "cluster_primary_security_group_id" {
   description = "Cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security group for control-plane-to-data-plane communication. Referred to as 'Cluster security group' in the EKS console"
   value       = try(module.eks.cluster_security_group_id, "")
 }
+
+output "load_balancer_controller_policy" {
+  description = "IAM police ARN of the load balancer controller policy"
+  value       = aws_iam_policy.load_balancer_controller_policy.arn
+}

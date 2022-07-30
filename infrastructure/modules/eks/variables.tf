@@ -53,3 +53,8 @@ variable "eks_managed_node_group" {
     capacity_type  = "ON_DEMAND"
   }
 }
+
+variable "load_balancer_controller_policy_name" {
+  type    = string
+  default = "AWSLoadBalancerControllerIAMPolicy"
+}
