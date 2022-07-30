@@ -63,3 +63,13 @@ variable "load_balancer_controller_policy_name" {
   type    = string
   default = "AWSLoadBalancerControllerIAMPolicy"
 }
+
+variable "max_session_duration" {
+  description = "The maximum session duration (in seconds) that set for the specified role"
+  default     = 3600
+}
+
+variable "load_balancer_controller_role_name" {
+  type    = string
+  default = "AWSLoadBalancerControllerRole"
+}

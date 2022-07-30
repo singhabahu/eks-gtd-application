@@ -61,6 +61,17 @@ module "eks" {
     }
   }
 
+  node_security_group_additional_rules = {
+    ingress_bastion = {
+      description                   = "Allow access from control plane to webhook port of AWS load balancer controller"
+      type                          = "ingress"
+      protocol                      = "tcp"
+      from_port                     = 9443
+      to_port                       = 9443
+      source_cluster_security_group = true
+    }
+  }
+
   eks_managed_node_group_defaults = {
     ami_type                   = var.eks_managed_node_group["ami_type"]
     disk_size                  = var.eks_managed_node_group["disk_size"]
