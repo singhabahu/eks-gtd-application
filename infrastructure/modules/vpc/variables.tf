@@ -1,3 +1,8 @@
+variable "eks_cluster_name" {
+  type    = string
+  default = "demo-eks-cluster"
+}
+
 variable "vpc_name" {
   type    = string
   default = "demo-eks-vpc"
