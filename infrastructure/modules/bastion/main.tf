@@ -9,10 +9,10 @@ EOF
 yum update -y
 
 # Install HELM
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+curl -L https://git.io/get_helm.sh | bash -s -- --version v3.8.2
 
 # Install KUBECTL
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
 install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 USERDATA
 }
