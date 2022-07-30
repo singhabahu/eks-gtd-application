@@ -19,4 +19,16 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   vpc_zone_identifier  = data.terraform_remote_state.vpc.outputs.public_subnets
   launch_configuration = aws_launch_configuration.launch_configuration.id
   name                 = var.autoscaling_group_name
+
+  tag {
+    key                 = "Name"
+    value               = "${var.eks_cluster_name}-bastion"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Environment"
+    value               = "dev"
+    propagate_at_launch = true
+  }
 }
