@@ -3,6 +3,11 @@ variable "vpc_key" {
   type        = string
 }
 
+variable "bastion_key" {
+  description = "Path to the bastion state file"
+  type        = string
+}
+
 variable "bucket" {
   description = "State bucket name"
   type        = string

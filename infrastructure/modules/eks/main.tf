@@ -50,6 +50,17 @@ module "eks" {
     }
   ]
 
+  cluster_security_group_additional_rules = {
+    ingress_bastion = {
+      description              = "Allow HTTPS from bastion"
+      protocol                 = "tcp"
+      from_port                = 443
+      to_port                  = 443
+      type                     = "ingress"
+      source_security_group_id = data.terraform_remote_state.bastion.outputs.bastion_security_group
+    }
+  }
+
   eks_managed_node_group_defaults = {
     ami_type                   = var.eks_managed_node_group["ami_type"]
     disk_size                  = var.eks_managed_node_group["disk_size"]
