@@ -24,6 +24,11 @@ output "cluster_primary_security_group_id" {
 }
 
 output "load_balancer_controller_policy" {
-  description = "IAM police ARN of the load balancer controller policy"
+  description = "IAM policy ARN of the load balancer controller policy"
   value       = aws_iam_policy.load_balancer_controller_policy.arn
+}
+
+output "load_balancer_controller_role" {
+  description = "IAM policy ARN of the load balancer controller role"
+  value       = aws_iam_role.load_balancer_controller_role.arn
 }
