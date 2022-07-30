@@ -1,12 +1,3 @@
-data "terraform_remote_state" "eks" {
-  backend = "s3"
-  config = {
-    bucket = "${var.bucket}"
-    region = "${var.region}"
-    key    = "${var.eks_key}"
-  }
-}
-
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
@@ -42,7 +33,7 @@ data "aws_iam_policy_document" "bastion_eks_policy_document" {
     ]
 
     resources = [
-      "${data.terraform_remote_state.eks.outputs.cluster_arn}",
+      "arn:aws:eks:${var.region}:${var.account_id}:cluster/${var.eks_cluster_name}"
     ]
   }
 }

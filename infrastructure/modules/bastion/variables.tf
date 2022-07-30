@@ -3,8 +3,13 @@ variable "vpc_key" {
   type        = string
 }
 
-variable "eks_key" {
-  description = "Path to the EKS state file"
+variable "account_id" {
+  description = "AWS account ID"
+  type        = string
+}
+
+variable "eks_cluster_name" {
+  description = "Name of the EKS cluster"
   type        = string
 }
 
