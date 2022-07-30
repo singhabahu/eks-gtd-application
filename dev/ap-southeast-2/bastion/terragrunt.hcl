@@ -1,5 +1,7 @@
 locals {
-  region = get_env("AWS_REGION", "ap-southeast-2")
+  region           = get_env("AWS_REGION", "ap-southeast-2")
+  account_id       = get_aws_account_id()
+  eks_cluster_name = get_env("EKS_CLUSTER_NAME", "demo-eks-cluster")
 }
 
 terraform {
@@ -11,6 +13,7 @@ include "root" {
 }
 
 inputs = {
-  vpc_key = "${local.region}/vpc/terraform.tfstate"
-  eks_key = "${local.region}/eks/terraform.tfstate"
+  vpc_key          = "${local.region}/vpc/terraform.tfstate"
+  account_id       = local.account_id
+  eks_cluster_name = local.eks_cluster_name
 }
