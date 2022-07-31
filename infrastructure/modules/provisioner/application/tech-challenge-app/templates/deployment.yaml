@@ -34,6 +34,12 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: VTT_LISTENHOST
+              valueFrom:
+                configMapKeyRef:
+                    name:  {{ include "tech-challenge-app.fullname" . }}
+                    value: listen_host
           ports:
             - name: http
               containerPort: 3000

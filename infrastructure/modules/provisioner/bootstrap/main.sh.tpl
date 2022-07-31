@@ -19,3 +19,6 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.name=aws-load-balancer-controller \
   --set image.repository=602401143452.dkr.ecr.${eks_region}.amazonaws.com/amazon/aws-load-balancer-controller \
   --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=${load_balancer_controller_role_arn}
+
+# Install application
+helm install --create-namespace demo application/ -n servian

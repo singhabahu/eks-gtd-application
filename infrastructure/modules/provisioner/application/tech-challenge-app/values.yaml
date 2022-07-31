@@ -36,6 +36,12 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+configmap:
+  db_name: ""
+  db_port: ""
+  db_host: ""
+  listen_host: "0.0.0.0"
+
 service:
   type: ClusterIP
   port: 3000
