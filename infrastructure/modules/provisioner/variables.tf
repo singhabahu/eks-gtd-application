@@ -30,6 +30,11 @@ variable "eks_key" {
   type        = string
 }
 
+variable "acm_key" {
+  description = "Path to the ACM state file"
+  type        = string
+}
+
 variable "bucket" {
   description = "State bucket name"
   type        = string
