@@ -30,6 +30,11 @@ create-eks: assert_aws_config
 	cd dev/ap-southeast-2/eks/ && terragrunt init
 	cd dev/ap-southeast-2/eks/ && terragrunt apply -auto-approve
 
+create-acm: assert_aws_config
+	@echo "Apply ACM module"
+	cd dev/ap-southeast-2/acm/ && terragrunt init 
+	cd dev/ap-southeast-2/acm/ && terragrunt apply -auto-approve
+
 create-provisioner: assert_aws_config
 	@echo "Apply Provisioner module"
 	cd dev/ap-southeast-2/provisioner/ && terragrunt init
@@ -40,4 +45,4 @@ destroy-provisioner: assert_aws_config
 	cd dev/ap-southeast-2/provisioner/ && terragrunt init
 	cd dev/ap-southeast-2/provisioner/ && terragrunt destroy -auto-approve
 
-apply-all: init create-vpc create-bastion create-eks create-provisioner
+apply-all: init create-vpc create-bastion create-eks create-acm create-provisioner

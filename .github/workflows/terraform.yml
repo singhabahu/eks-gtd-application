@@ -70,12 +70,12 @@ jobs:
 
     # Initialize a new or existing Terraform working directory - eks
     - name: EKS Terraform Init 
-      working-directory: '${{env.MODULE_PATH}}/vpc'
+      working-directory: '${{env.MODULE_PATH}}/eks'
       run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format - eks
     - name: EKS Terraform Format
-      working-directory: '${{env.MODULE_PATH}}/vpc'
+      working-directory: '${{env.MODULE_PATH}}/eks'
       run: terraform fmt -check
 
     # Initialize a new or existing Terraform working directory - secretsmanager
@@ -100,11 +100,21 @@ jobs:
 
     # Initialize a new or existing Terraform working directory - provisioner
     - name: Provisioner Terraform Init 
-      working-directory: '${{env.MODULE_PATH}}/bastion'
+      working-directory: '${{env.MODULE_PATH}}/provisioner'
       run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format - provisioner
     - name: Provisioner Terraform Format
-      working-directory: '${{env.MODULE_PATH}}/bastion'
+      working-directory: '${{env.MODULE_PATH}}/provisioner'
+      run: terraform fmt -check
+
+    # Initialize a new or existing Terraform working directory - acm
+    - name: Provisioner Terraform Init 
+      working-directory: '${{env.MODULE_PATH}}/acm'
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format - acm
+    - name: Provisioner Terraform Format
+      working-directory: '${{env.MODULE_PATH}}/acm'
       run: terraform fmt -check
     
