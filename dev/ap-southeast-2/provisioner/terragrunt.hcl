@@ -18,6 +18,7 @@ inputs = {
   bucket                = local.bucket
   bastion_key           = "${local.region}/bastion/terraform.tfstate"
   eks_key               = "${local.region}/eks/terraform.tfstate"
+  acm_key               = "${local.region}/acm/terraform.tfstate"
   aws_access_key_id     = local.access_key_id
   aws_secret_access_key = local.secret_access_key
   aws_default_region    = local.region

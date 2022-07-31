@@ -37,9 +37,9 @@ securityContext: {}
   # runAsUser: 1000
 
 configmap:
-  db_name: ""
-  db_port: ""
-  db_host: ""
+  db_name: "postgres"
+  db_port: "5432"
+  db_host: "localhost"
   listen_host: "0.0.0.0"
 
 service:
@@ -52,6 +52,8 @@ ingress:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: ""
   hosts:
     - paths:
         - path: /

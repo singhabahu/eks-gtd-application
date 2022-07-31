@@ -23,6 +23,15 @@ data "terraform_remote_state" "bastion" {
   }
 }
 
+data "terraform_remote_state" "acm" {
+  backend = "s3"
+  config = {
+    bucket = "${var.bucket}"
+    region = "${var.aws_default_region}"
+    key    = "${var.acm_key}"
+  }
+}
+
 data "aws_secretsmanager_secret" "private_key_metadata" {
   arn = data.terraform_remote_state.bastion.outputs.secretsmanager_private_key
 }

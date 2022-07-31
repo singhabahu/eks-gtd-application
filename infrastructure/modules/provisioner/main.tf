@@ -32,6 +32,7 @@ resource "null_resource" "bastion_host" {
       eks_region                        = var.aws_default_region
       eks_cluster_name                  = var.eks_cluster_name,
       load_balancer_controller_role_arn = data.terraform_remote_state.eks.outputs.load_balancer_controller_role
+      certificate_arn                   = data.terraform_remote_state.acm.outputs.acm_certificate
     })
     destination = "build.sh"
   }

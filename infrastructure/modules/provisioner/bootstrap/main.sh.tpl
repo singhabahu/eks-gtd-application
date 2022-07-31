@@ -12,7 +12,7 @@ helm repo add eks https://aws.github.io/eks-charts
 helm repo update
 
 # Install aws-load-balancer-controller
-helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
   --set clusterName=${eks_cluster_name} \
   --set serviceAccount.create=true \
@@ -21,4 +21,5 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=${load_balancer_controller_role_arn}
 
 # Install application
-helm install --create-namespace demo application/ -n servian
+helm install --create-namespace demo application/ -n servian \
+  --set ingress.annotations."alb\.ingress\.kubernetes\.io/certificate-arn"=${certificate_arn}
