@@ -70,6 +70,15 @@ module "eks" {
       to_port                       = 9443
       source_cluster_security_group = true
     }
+
+    ingress_metric_server = {
+      description                   = "Cluster to node 4443 (Metrics Server)"
+      type                          = "ingress"
+      protocol                      = "tcp"
+      from_port                     = 4443
+      to_port                       = 4443
+      source_cluster_security_group = true
+    }
   }
 
   eks_managed_node_group_defaults = {
