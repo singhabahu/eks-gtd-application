@@ -35,6 +35,31 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: VTT_DBUSER
+              valueFrom:
+                secretKeyRef:
+                    name:  {{ include "tech-challenge-app.fullname" . }}
+                    key: db_username
+            - name: VTT_DBPASSWORD
+              valueFrom:
+                secretKeyRef:
+                    name:  {{ include "tech-challenge-app.fullname" . }}
+                    key: db_password
+            - name: VTT_DBNAME
+              valueFrom:
+                configMapKeyRef:
+                    name:  {{ include "tech-challenge-app.fullname" . }}
+                    key: db_name
+            - name: VTT_DBPORT
+              valueFrom:
+                configMapKeyRef:
+                    name:  {{ include "tech-challenge-app.fullname" . }}
+                    key: db_port
+            - name: VTT_DBHOST
+              valueFrom:
+                configMapKeyRef:
+                    name:  {{ include "tech-challenge-app.fullname" . }}
+                    key: db_host
             - name: VTT_LISTENHOST
               valueFrom:
                 configMapKeyRef:

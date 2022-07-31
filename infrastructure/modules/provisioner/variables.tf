@@ -35,6 +35,11 @@ variable "acm_key" {
   type        = string
 }
 
+variable "rds_key" {
+  description = "Path to the RDS state file"
+  type        = string
+}
+
 variable "bucket" {
   description = "State bucket name"
   type        = string

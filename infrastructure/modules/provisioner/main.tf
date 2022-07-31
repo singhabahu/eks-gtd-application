@@ -33,6 +33,11 @@ resource "null_resource" "bastion_host" {
       eks_cluster_name                  = var.eks_cluster_name,
       load_balancer_controller_role_arn = data.terraform_remote_state.eks.outputs.load_balancer_controller_role
       certificate_arn                   = data.terraform_remote_state.acm.outputs.acm_certificate
+      db_name                           = data.terraform_remote_state.rds.outputs.db_instance_name
+      db_port                           = data.terraform_remote_state.rds.outputs.db_instance_port
+      db_host                           = data.terraform_remote_state.rds.outputs.db_instance_address
+      db_username                       = data.aws_secretsmanager_secret_version.database_username_version.secret_string
+      db_password                       = data.aws_secretsmanager_secret_version.database_password_version.secret_string
     })
     destination = "build.sh"
   }

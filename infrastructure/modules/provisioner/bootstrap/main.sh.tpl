@@ -22,4 +22,21 @@ helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
 
 # Install application
 helm install --create-namespace demo application/ -n servian \
-  --set ingress.annotations."alb\.ingress\.kubernetes\.io/certificate-arn"=${certificate_arn}
+  --set ingress.annotations."alb\.ingress\.kubernetes\.io/certificate-arn"=${certificate_arn} \
+  --set configmap.db_name=${db_name} \
+  --set configmap.db_port=${db_port} \
+  --set configmap.db_host=${db_host} \
+  --set secrets.db_username=${db_username} \
+  --set secrets.db_password=${db_password}
+
+# Wait for pods to be ready
+kubectl -n servian wait pod --for=condition=Ready -l app.kubernetes.io/name=tech-challenge-app
+
+# Seed database
+kubectl exec -it $(kubectl get pods -o name --no-headers=true -n servian | head -n 1) -n servian -- sh -c "./TechChallengeApp updatedb -s"
+
+# Fetch the URL from ingress hostname
+url=$(kubectl get ing -n servian -o jsonpath={..hostname})
+
+echo "Note that it can take some time to provision the ALB (~3mins) so below URL might not be available right away"
+echo "Please visit to access the application: https://$url"
