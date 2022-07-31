@@ -79,6 +79,15 @@ module "eks" {
       to_port                       = 4443
       source_cluster_security_group = true
     }
+
+    egress_database_server = {
+      description = "Allow access to database server"
+      protocol    = "tcp"
+      from_port   = 5432
+      to_port     = 5432
+      type        = "egress"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   eks_managed_node_group_defaults = {

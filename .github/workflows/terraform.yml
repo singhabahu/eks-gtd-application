@@ -117,4 +117,14 @@ jobs:
     - name: Provisioner Terraform Format
       working-directory: '${{env.MODULE_PATH}}/acm'
       run: terraform fmt -check
+
+    # Initialize a new or existing Terraform working directory - rds
+    - name: RDS Terraform Init 
+      working-directory: '${{env.MODULE_PATH}}/rds'
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format - rds
+    - name: RDS Terraform Format
+      working-directory: '${{env.MODULE_PATH}}/rds'
+      run: terraform fmt -check
     
