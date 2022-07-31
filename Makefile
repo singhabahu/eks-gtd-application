@@ -35,4 +35,9 @@ create-provisioner: assert_aws_config
 	cd dev/ap-southeast-2/provisioner/ && terragrunt init
 	cd dev/ap-southeast-2/provisioner/ && terragrunt apply -auto-approve
 
+destroy-provisioner: assert_aws_config
+	@echo "Destroy Provisioner module"
+	cd dev/ap-southeast-2/provisioner/ && terragrunt init
+	cd dev/ap-southeast-2/provisioner/ && terragrunt destroy -auto-approve
+
 apply-all: init create-vpc create-bastion create-eks create-provisioner

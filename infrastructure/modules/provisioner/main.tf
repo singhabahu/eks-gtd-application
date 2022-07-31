@@ -23,6 +23,11 @@ resource "null_resource" "bastion_host" {
   }
 
   provisioner "file" {
+    source      = "application/tech-challenge-app"
+    destination = "application"
+  }
+
+  provisioner "file" {
     content = templatefile("bootstrap/main.sh.tpl", {
       eks_region                        = var.aws_default_region
       eks_cluster_name                  = var.eks_cluster_name,
