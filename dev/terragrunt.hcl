@@ -1,5 +1,5 @@
 locals {
-  region               = get_env("AWS_REGION", "ap-southeast-2")
+  region               = get_env("AWS_DEFAULT_REGION", "ap-southeast-2")
   bucket               = "${get_env("S3_STATE_BUCKET", "demo-eks-state")}-${get_aws_account_id()}"
   aws_provider_version = "4.23.0"
 }
