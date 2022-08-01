@@ -11,6 +11,9 @@ chmod 600 ~/.kube/config
 helm repo add eks https://aws.github.io/eks-charts
 helm repo update
 
+# Install metrics-server
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
 # Install aws-load-balancer-controller
 helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
@@ -21,7 +24,7 @@ helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=${load_balancer_controller_role_arn}
 
 # Install application
-helm install --create-namespace demo application/ -n servian \
+helm upgrade -i --create-namespace demo application/ -n servian \
   --set ingress.annotations."alb\.ingress\.kubernetes\.io/certificate-arn"=${certificate_arn} \
   --set configmap.db_name=${db_name} \
   --set configmap.db_port=${db_port} \
