@@ -1,5 +1,5 @@
 locals {
-  region           = get_env("AWS_REGION", "ap-southeast-2")
+  region           = get_env("AWS_DEFAULT_REGION", "ap-southeast-2")
   eks_cluster_name = get_env("EKS_CLUSTER_NAME", "demo-eks-cluster")
 }
 
