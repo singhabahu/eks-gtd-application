@@ -1,9 +1,11 @@
 variable "state_bucket_name" {
-  type    = string
-  default = "demo-eks-state"
+  description = "The name of the state bucket"
+  type        = string
+  default     = "demo-eks-state"
 }
 
 variable "dynamodb_table_name" {
-  type    = string
-  default = "demo-eks-state-lock"
+  description = "The name of the dynamodb table"
+  type        = string
+  default     = "demo-eks-state-lock"
 }

@@ -19,17 +19,20 @@ variable "region" {
 }
 
 variable "eks_cluster_name" {
-  type    = string
-  default = "demo-eks-cluster"
+  description = "The EKS cluster name"
+  type        = string
+  default     = "demo-eks-cluster"
 }
 
 variable "eks_cluster_version" {
-  type    = string
-  default = "1.22"
+  description = "The EKS cluster K8 version"
+  type        = string
+  default     = "1.22"
 }
 
 variable "eks_cluster_addons_versions" {
-  type = map(string)
+  description = "The EKS cluster addon versions"
+  type        = map(string)
   default = {
     coredns    = "v1.8.7-eksbuild.1"
     kube-proxy = "v1.22.11-eksbuild.2"
@@ -38,6 +41,7 @@ variable "eks_cluster_addons_versions" {
 }
 
 variable "eks_managed_node_group" {
+  description = "The EKS cluster managed node group configs"
   type = object({
     ami_type       = string
     disk_size      = number
@@ -60,8 +64,9 @@ variable "eks_managed_node_group" {
 }
 
 variable "load_balancer_controller_policy_name" {
-  type    = string
-  default = "AWSLoadBalancerControllerIAMPolicy"
+  description = "The load balancer controller policy name"
+  type        = string
+  default     = "AWSLoadBalancerControllerIAMPolicy"
 }
 
 variable "max_session_duration" {
@@ -70,6 +75,7 @@ variable "max_session_duration" {
 }
 
 variable "load_balancer_controller_role_name" {
-  type    = string
-  default = "AWSLoadBalancerControllerRole"
+  description = "The load balancer controller role name"
+  type        = string
+  default     = "AWSLoadBalancerControllerRole"
 }
