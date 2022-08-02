@@ -36,7 +36,7 @@ In order to deploy the solution following step can be executed.
 make apply-all
 ```
 
-If there's a problem with any perticular module, that can be re-applied using the `make create-{module_name}`
+If there's a problem with any particular module, that can be re-applied using the `make create-{module_name}`
 
 ```bash
 # Example
@@ -50,19 +50,19 @@ Destroy can be performed with the following command but make sure to delete the 
 export AWS_SECRET_ACCESS_KEY={aws_secret_access_key}
 export AWS_ACCESS_KEY_ID={aws_access_key_id}
 
-aws eks update-kubeconfig --region {region} --name
-{cluster_name}
+aws eks update-kubeconfig --region {region} --name {cluster_name}
 helm uninstall demo -n servian
 # From local machine
 make destroy-all:
 ```
 
 ## CI/CD
-CI is setup using GitHub actions to validate each terraform module dependencies and it's formatting. CD is not included in the scope is this project.
+CI is setup using GitHub actions to validate each terraform module dependencies and its formatting. CD is not included in the scope is this project.
 
 ## Limitations and Improvements
 ### Limitations
-- HTTPS was used with TLS self-singed certificate was used
+- HTTPS was used with TLS self-signed certificate
+
 ### Improvements
 - Introduce cluster-autoscaler to scale nodes based on resources utilization
 - Introduce a CD tool like Flux for automated deployments
