@@ -11,10 +11,24 @@ Terraform modules to support deploying EKS cluster with GTD application.
 - Make
 
 ## Design
-
+### AWS
 High level architecture consists of a VPC with three subnets along with the EKS cluster.
 
 ![image](https://user-images.githubusercontent.com/22044130/182176653-45ef0798-eb92-49d0-aac0-47fbc631d9e0.png)
+### Git Workflow
+This repository follow the Git Workflow practices 
+```bash
+# Example of branch naming for feature development
+feature/provisioner-update-rds
+feature/state-backend
+# Example of branch naming for hotfixes
+hotfix/add-metrics-server
+hotfix/application-config
+hotfix/hpa-deprecated-warning
+# Example of branch naming for other topics
+topic/documentation-improvements
+topic/documents
+``` 
 
 ## Setup
 Following ENV vars are required to setup the infrastructure.
@@ -57,11 +71,32 @@ make destroy-all:
 ```
 
 ## CI/CD
-CI is setup using GitHub actions to validate each terraform module dependencies and its formatting. CD is not included in the scope is this project.
+CI is setup using GitHub [actions](https://github.com/singhabahu/eks-gtd-application/actions) to validate each terraform module dependencies and its formatting. CD is not included in the scope is this project.
+
+## Demo
+Once the application deployment is complete by the provisioner it will generate the URL for users to access
+```bash
+# Example 
+null_resource.bastion_host (remote-exec): Note that it can take some time to provision the ALB (~3mins) so below URL might not be available right away
+null_resource.bastion_host (remote-exec): Please visit to access the application: https://k8s-servian-demotech-a07a347a2c-445616228.ap-southeast-2.elb.amazonaws.com
+null_resource.bastion_host: Creation complete after 57s [id=2239249671056644405]
+Releasing state lock. This may take a few moments...
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+```
+
+When acceced via the browser application will look like this
+
+<img width="1680" alt="image" src="https://user-images.githubusercontent.com/22044130/182297952-0b74668f-f350-4282-850c-c2bd70470041.png">
+
+Health endpoint will return the status of the application
+
+![image](https://user-images.githubusercontent.com/22044130/182298233-4cb6ed4b-5af8-45f7-9d78-64be897e4521.png)
 
 ## Limitations and Improvements
 ### Limitations
 - HTTPS was used with TLS self-signed certificate
+![image](https://user-images.githubusercontent.com/22044130/182298100-92e6c37e-f2fc-4e65-9692-8dc328ecf89d.png)
 
 ### Improvements
 - Introduce cluster-autoscaler to scale nodes based on resources utilization

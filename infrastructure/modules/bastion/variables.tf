@@ -71,7 +71,8 @@ variable "autoscaling_group_name" {
 }
 
 variable "autoscaling_group_configs" {
-  type = map(string)
+  description = "The autoscaling group configs"
+  type        = map(string)
   default = {
     min_size         = 1
     max_size         = 3
