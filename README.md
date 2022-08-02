@@ -15,8 +15,34 @@ Terraform modules to support deploying EKS cluster with GTD application.
 High level architecture consists of a VPC with three subnets along with the EKS cluster.
 
 ![image](https://user-images.githubusercontent.com/22044130/182176653-45ef0798-eb92-49d0-aac0-47fbc631d9e0.png)
+
+### Terragrunt
+Terragrunt is a thin wrapper for Terraform that provides extra tools for keeping your Terraform configurations DRY. This was used to achieve following features
+- Modular design to make it easy to apply/modify and delete each component separately
+- DRY code base for repetitive code blocks
+- Use of built-in functions to reduce 3rd party scripts
+```bash
+# Example of DRY use of backend config
+remote_state {
+  backend = "s3"
+
+  generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite_terragrunt"
+  }
+
+  config = {
+    bucket         = local.bucket
+    key            = "${path_relative_to_include()}/terraform.tfstate"
+    kms_key_id     = "alias/terraform-bucket-key"
+    region         = local.region
+    encrypt        = true
+    dynamodb_table = "demo-eks-state-lock"
+  }
+}
+```
 ### Git Workflow
-This repository follow the Git Workflow practices 
+This repository follows the Git Workflow practices.
 ```bash
 # Example of branch naming for feature development
 feature/provisioner-update-rds
@@ -76,7 +102,7 @@ CI is setup using GitHub [actions](https://github.com/singhabahu/eks-gtd-applica
 ## Demo
 Once the application deployment is complete by the provisioner it will generate the URL for users to access
 ```bash
-# Example 
+# Example of the provisioner output
 null_resource.bastion_host (remote-exec): Note that it can take some time to provision the ALB (~3mins) so below URL might not be available right away
 null_resource.bastion_host (remote-exec): Please visit to access the application: https://k8s-servian-demotech-a07a347a2c-445616228.ap-southeast-2.elb.amazonaws.com
 null_resource.bastion_host: Creation complete after 57s [id=2239249671056644405]
